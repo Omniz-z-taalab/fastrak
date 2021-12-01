@@ -1,26 +1,42 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:country_pickers/country_pickers.dart';
+import 'package:fastrak/inscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:country_code/country_code.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+  String phone;
+
+  SignUp(this.phone);
 
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  // Boolean value
+  TextEditingController phoneNumber = TextEditingController();
   bool _value = false;
   final List _allActivities = ['+1', '+91'];
   String _activity = '+1';
+  String countryName = "20";
+  // _SignUpState(this.phone);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+     print("omnya " + widget.phone.toString());
+    super.initState();
+    setState(() {
+      if(widget.phone != null)
+      {
+        phoneNumber.text = widget.phone;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
- return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: Image.asset(
@@ -51,7 +67,8 @@ class _SignUpState extends State<SignUp> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black38.withOpacity(.02), spreadRadius: 3),
+                        color: Colors.black38.withOpacity(.02),
+                        spreadRadius: 3),
                   ]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -67,12 +84,12 @@ class _SignUpState extends State<SignUp> {
                     ),
                     child: Text('SIGN UP',
                         style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 20.0,
                             color: Colors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(
-                    width: 30.0,
+                    width: 40.0,
                     height: 3.0,
                     child: Container(
                       decoration: BoxDecoration(
@@ -105,6 +122,9 @@ class _SignUpState extends State<SignUp> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Image.asset('images/camera.png'),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Text(
                               'profile photo',
                               style: TextStyle(
@@ -158,46 +178,75 @@ class _SignUpState extends State<SignUp> {
                             style: TextStyle(color: Colors.black38),
                           ),
                           Container(
-                            padding: EdgeInsets.only(top: 5, bottom: 5),
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  right: 10.0, left: 10.0, top: 18, bottom: 18),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: Colors.black38)),
-                              child: InkWell(
-                                onTap: () {
-                                  showCountryPicker(
-                                    context: context,
-                                    showPhoneCode: true,
-                                    // optional. Shows phone code before the country name.
-                                    onSelect: (Country country) {
-                                      print(
-                                          'Select country: ${country.displayName}');
-                                    },
-                                  );
-                                  showCountryPicker(
-                                    context: context,
-                                    exclude: <String>['KN', 'MF'],
-                                    //It takes a list of country code(iso2).
-                                    onSelect: (Country country) => print(
-                                        'Select country: ${country.displayName}'),
-                                  );
-                                },
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      '+0',
+                            height: 55,
+                            padding: EdgeInsets.only(
+                                right: 2.0, left: 2.0, top: 2, bottom: 2),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: Colors.black38)),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    showCountryPicker(
+                                      context: context,
+                                      showPhoneCode: true,
+                                      onSelect: (Country country) {
+                                        print(
+                                            'Select country: ${country.displayName}');
+                                        setState(() {
+                                          countryName = country.phoneCode;
+                                        });
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 20,
+                                    child: Text(
+                                      '${countryName}',
+                                      style: TextStyle(fontSize: 10),
                                     ),
-                                    Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.black38,
-                                      size: 20,
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                                Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.black12,
+                                  size: 20,
+                                ),
+                                Container(
+                                  color: Colors.black38,
+                                  child: SizedBox(
+                                    width: 2.0,
+                                    height: 20.0,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Expanded(
+                                  child: Center(
+                                    child: Container(
+                                      padding: EdgeInsets.all(2),
+                                      child: TextField(
+                                        controller: phoneNumber,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
+                                          LengthLimitingTextInputFormatter(10),
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp(r'^[1-9][0-9]*$'))
+                                        ],
+                                        decoration: const InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: ('{phone}'),
+                                            contentPadding: EdgeInsets.all(9),
+                                            hintStyle: TextStyle(fontSize: 15)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
@@ -295,25 +344,26 @@ class _SignUpState extends State<SignUp> {
                         ]),
                   ),
                   SizedBox(
-                      height: 55,
-                      width: 500,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.only(left: 120.0, right: 120.0),
-                          primary: Colors.white,
-                          textStyle: const TextStyle(fontSize: 10),
-                          backgroundColor: Color(0xFF4B0082),
-                        ),
-                        child: Text('Sign Up',
-                            style: TextStyle(
-                                fontSize: 15.0, fontWeight: FontWeight.bold)),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUp()));
-                        },
-                      )),
+                    height: 55,
+                    width: 500,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.only(left: 120.0, right: 120.0),
+                        primary: Colors.white,
+                        textStyle: const TextStyle(fontSize: 10),
+                        backgroundColor: Color(0xFF4B0082),
+                      ),
+                      child: Text('Sign Up',
+                          style: TextStyle(
+                              fontSize: 15.0, fontWeight: FontWeight.bold)),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Inscreen(widget.phone)));
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -16,76 +16,79 @@ class WelcomeScene extends StatefulWidget {
 
 class _WelcomeSceneState extends State<WelcomeScene> {
   final _controller = PageController();
-
+  TextEditingController phone = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: Column(
-      children: [
-        SizedBox(
-          height: 20,
-        ),
-        Image.asset(
-          "images/Logoword.png",
-          height: 90.0,
-          width: 350.0,
-        ),
-        Expanded(
-          child: Container(
-            color: Color(0xFFF9FAFF),
-            margin: EdgeInsets.symmetric(horizontal: 30),
-            child: PageView(
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Image.asset(
+              "images/Logoword.png",
+              height: 90.0,
+              width: 350.0,
+            ),
+            Expanded(
+              child: Container(
+                color: Color(0xFFF9FAFF),
+                margin: EdgeInsets.symmetric(horizontal: 30),
+                child: PageView(
+                  controller: _controller,
+                  children: <Widget>[
+                    page('images/Group 7627.png', "User-friendly",
+                        "From registering an account with Fastrak to tracking your parcel, we ensure a friendly and easy-to-use application."),
+                    page('images/Group 7627.png', "User-friendly",
+                        "From registering an account with Fastrak to tracking your parcel, we ensure a friendly and easy-to-use application."),
+                    page('images/Group 7627.png', "Hello",
+                        "From registering an account with Fastrak to tracking your parcel, we ensure a friendly and easy-to-use application."),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            SmoothPageIndicator(
               controller: _controller,
-              children: <Widget>[
-                page('images/Group 7627.png', "User-friendly",
-                    "From registering an account with Fastrak to tracking your parcel, we ensure a friendly and easy-to-use application."),
-                page('images/Group 7627.png', "User-friendly",
-                    "From registering an account with Fastrak to tracking your parcel, we ensure a friendly and easy-to-use application."),
-                page('images/Group 7627.png', "Hello",
-                    "From registering an account with Fastrak to tracking your parcel, we ensure a friendly and easy-to-use application."),
-              ],
+              count: 3,
+              effect: SwapEffect(
+                  activeDotColor: Color(0xFF4B0082),
+                  dotHeight: 8,
+                  dotWidth: 8,
+                  spacing: 10),
             ),
-          ),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        SmoothPageIndicator(controller: _controller, count: 3, effect: SwapEffect(
-            activeDotColor: Color(0xFF4B0082), dotHeight: 8, dotWidth: 8,
-            spacing: 10
-        ) ,),
-
-        SizedBox(
-          height: 40,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(50),
-          ),
-
-          child: TextButton(
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.only(left: 40.0, right: 40.0),
-              primary: Colors.deepPurple,
-              textStyle: const TextStyle(fontSize: 20),
-              backgroundColor: Colors.purple.shade50,
+            SizedBox(
+              height: 40,
             ),
-            child: Text('Skip', style: TextStyle(fontSize: 15.0)),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SignIn()));
-            },
-          ),
-
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.only(left: 40.0, right: 40.0),
+                  primary: Colors.deepPurple,
+                  textStyle: const TextStyle(fontSize: 20),
+                  backgroundColor: Colors.purple.shade50,
+                ),
+                child: Text('Skip', style: TextStyle(fontSize: 15.0)),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignIn(phone: phone.text,)));
+                },
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+          ],
         ),
-
-        SizedBox(
-          height: 25,
-        ),
-      ],
-    )));
+      ),
+    );
   }
 
   Widget page(String image, String title, String subTitle) {
@@ -95,11 +98,9 @@ class _WelcomeSceneState extends State<WelcomeScene> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: Colors.white12),
-          boxShadow: [ BoxShadow(
-      color: Colors.black38.withOpacity(.02), spreadRadius: 3),
-
-          ]
-      ),
+          boxShadow: [
+            BoxShadow(color: Colors.black38.withOpacity(.02), spreadRadius: 3),
+          ]),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
