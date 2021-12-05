@@ -4,7 +4,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
-   <application
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
         android:label="fastrak"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -9,6 +9,7 @@ class SetNew extends StatefulWidget {
   @override
   _SetNewState createState() => _SetNewState();
 }
+TextEditingController _phone = TextEditingController();
 
 class _SetNewState extends State<SetNew> {
   @override
@@ -134,7 +135,7 @@ class _SetNewState extends State<SetNew> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PasswordOtp()));
+                                    builder: (context) => PasswordOtp(_phone.text)));
                           }),
                     ),
                     ),

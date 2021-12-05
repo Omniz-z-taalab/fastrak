@@ -3,15 +3,14 @@ import 'package:fastrak/setnew.dart';
 import 'package:flutter/material.dart';
 
 class Inscreen extends StatefulWidget {
-
-  String? phone;
-  Inscreen(this.phone);
-
+String phone;
+Inscreen(this.phone);
   @override
   _InscreenState createState() => _InscreenState();
 }
 
 class _InscreenState extends State<Inscreen> {
+  TextEditingController _phone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +123,7 @@ class _InscreenState extends State<Inscreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => PasswordOtp()));
+                                        builder: (context) => PasswordOtp(_phone.text)));
                               });
                             }),
                         SizedBox(
@@ -158,7 +157,7 @@ class _InscreenState extends State<Inscreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PasswordOtp()));
+                                  builder: (context) => PasswordOtp(_phone.text)));
                         }),
                   ),
                 ],
@@ -195,7 +194,7 @@ class _InscreenState extends State<Inscreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PasswordOtp()));
+                                  builder: (context) => PasswordOtp(_phone.text)));
                         }),
                   ),
                 ),

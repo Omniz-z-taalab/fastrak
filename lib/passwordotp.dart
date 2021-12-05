@@ -6,16 +6,19 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
 class PasswordOtp extends StatefulWidget {
+String phone;
+PasswordOtp(this.phone);
   static String routeName = "/otp";
   final value = IntTween();
-
-  @override
+@override
   _PasswordOtpState createState() => _PasswordOtpState();
 }
 
 class _PasswordOtpState extends State<PasswordOtp> {
   Timer? _timer;
   int _start = 60;
+  TextEditingController phoneNumber = TextEditingController();
+
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -38,6 +41,7 @@ class _PasswordOtpState extends State<PasswordOtp> {
   @override
   void initState() {
     // TODO: implement initState
+    print("omnya ${widget.phone}");
     super.initState();
     startTimer();
   }
@@ -46,11 +50,19 @@ class _PasswordOtpState extends State<PasswordOtp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        leading: BackButton(
-          color: Colors.black,
+        title: Image.asset(
+          'images/Logoword.png',
+          width: 250,
+          height: 80,
         ),
         backgroundColor: Color(0xFFF9FAFF),
+        leading: BackButton(
+          onPressed: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+            Navigator.pop(context);
+          },
+          color: Colors.black,
+        ),
       ),
       backgroundColor: Color(0xFFF9FAFF),
       body: SingleChildScrollView(
@@ -109,6 +121,7 @@ class _PasswordOtpState extends State<PasswordOtp> {
                       alignment: Alignment.center,
                       child: Text(
                         'Code Has Been Sent To '
+                        "${widget.phone}"
                         'Enter The Code Below To Continue.',
                         style: TextStyle(
                             fontSize: 13,

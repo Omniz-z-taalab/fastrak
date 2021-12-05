@@ -1,5 +1,5 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:fastrak/inscreen.dart';
+import 'package:fastrak/Password.dart';
 import 'package:fastrak/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -7,10 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class SignIn extends StatefulWidget {
-  String phone;
-
-  SignIn({required this.phone});
-
+  // String phone;
+  // SignIn({required this.phone});
   @override
   _SignInState createState() => _SignInState();
 }
@@ -191,7 +189,8 @@ class _SignInState extends State<SignIn> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => Inscreen(widget.phone),
+                                      builder: (context) =>
+                                          Inscreen(_phone.text),
                                     ),
                                   );
                                 }),

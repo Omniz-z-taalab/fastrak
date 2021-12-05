@@ -1,7 +1,9 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:fastrak/inscreen.dart';
+import 'package:fastrak/Password.dart';
+import 'package:fastrak/passwordotp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SignUp extends StatefulWidget {
@@ -14,21 +16,21 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  // late String openCamera;
+
+  _openCamera() {}
+
   TextEditingController phoneNumber = TextEditingController();
   bool _value = false;
   final List _allActivities = ['+1', '+91'];
   String _activity = '+1';
   String countryName = "20";
-  // _SignUpState(this.phone);
 
   @override
   void initState() {
-    // TODO: implement initState
-     print("omnya " + widget.phone.toString());
     super.initState();
     setState(() {
-      if(widget.phone != null)
-      {
+      if (widget.phone != null) {
         phoneNumber.text = widget.phone;
       }
     });
@@ -102,12 +104,12 @@ class _SignUpState extends State<SignUp> {
                     height: 20.0,
                   ),
                   InkWell(
-                    onTap: () {
-                      void requestPermission() async {
-                        var status = await Permission.camera.status;
-                        if (!status.isGranted) {
-                          await Permission.camera.request();
-                        }
+                    onTap: () async {
+                      var status = await Permission.camera.status;
+                      if (!status.isGranted) {
+                        await Permission.camera.request();
+                        // if (status.isGranted) {
+                        // openCamera;
                       }
                     },
                     child: Container(
@@ -178,75 +180,80 @@ class _SignUpState extends State<SignUp> {
                             style: TextStyle(color: Colors.black38),
                           ),
                           Container(
-                            height: 55,
-                            padding: EdgeInsets.only(
-                                right: 2.0, left: 2.0, top: 2, bottom: 2),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: Colors.black38)),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    showCountryPicker(
-                                      context: context,
-                                      showPhoneCode: true,
-                                      onSelect: (Country country) {
-                                        print(
-                                            'Select country: ${country.displayName}');
-                                        setState(() {
-                                          countryName = country.phoneCode;
-                                        });
-                                      },
-                                    );
-                                  },
-                                  child: Container(
-                                    height: 20,
-                                    child: Text(
-                                      '${countryName}',
-                                      style: TextStyle(fontSize: 10),
-                                    ),
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.arrow_drop_down,
-                                  color: Colors.black12,
-                                  size: 20,
-                                ),
-                                Container(
-                                  color: Colors.black38,
-                                  child: SizedBox(
-                                    width: 2.0,
-                                    height: 20.0,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Expanded(
-                                  child: Center(
+                            padding: EdgeInsets.only(top: 5, bottom: 5),
+                            child: Container(
+                              height: 55,
+                              padding: EdgeInsets.only(
+                                  right: 10.0, left: 10.0, top: 18, bottom: 18),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: Colors.black38)),
+                              child: Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      showCountryPicker(
+                                        context: context,
+                                        showPhoneCode: true,
+                                        onSelect: (Country country) {
+                                          print(
+                                              'Select country: ${country.displayName}');
+                                          setState(() {
+                                            countryName = country.phoneCode;
+                                          });
+                                        },
+                                      );
+                                    },
                                     child: Container(
-                                      padding: EdgeInsets.all(2),
-                                      child: TextField(
-                                        controller: phoneNumber,
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter
-                                              .digitsOnly,
-                                          LengthLimitingTextInputFormatter(10),
-                                          FilteringTextInputFormatter.allow(
-                                              RegExp(r'^[1-9][0-9]*$'))
-                                        ],
-                                        decoration: const InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: ('{phone}'),
-                                            contentPadding: EdgeInsets.all(9),
-                                            hintStyle: TextStyle(fontSize: 15)),
+                                      height: 20,
+                                      child: Text(
+                                        '${countryName}',
+                                        style: TextStyle(fontSize: 10),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.black12,
+                                    size: 20,
+                                  ),
+                                  Container(
+                                    color: Colors.black38,
+                                    child: SizedBox(
+                                      width: 2.0,
+                                      height: 20.0,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 2,
+                                  ),
+                                  Expanded(
+                                    child: Center(
+                                      child: Container(
+                                        padding: EdgeInsets.all(2),
+                                        child: TextField(
+                                          controller: phoneNumber,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
+                                            LengthLimitingTextInputFormatter(
+                                                10),
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp(r'^[1-9][0-9]*$'))
+                                          ],
+                                          decoration: const InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: ('phone'),
+                                              contentPadding: EdgeInsets.all(9),
+                                              hintStyle:
+                                                  TextStyle(fontSize: 15)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -360,7 +367,8 @@ class _SignUpState extends State<SignUp> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Inscreen(widget.phone)));
+                                builder: (context) =>
+                                    PasswordOtp(widget.phone)));
                       },
                     ),
                   ),

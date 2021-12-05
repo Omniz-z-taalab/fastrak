@@ -8,7 +8,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class WelcomeScene extends StatefulWidget {
-  const WelcomeScene({Key? key}) : super(key: key);
 
   @override
   _WelcomeSceneState createState() => _WelcomeSceneState();
@@ -78,7 +77,7 @@ class _WelcomeSceneState extends State<WelcomeScene> {
                 child: Text('Skip', style: TextStyle(fontSize: 15.0)),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignIn(phone: phone.text,)));
+                      MaterialPageRoute(builder: (context) => SignIn()));
                 },
               ),
             ),
