@@ -1,5 +1,6 @@
 import 'package:fastrak/passwordotp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SetNew extends StatefulWidget {
 
@@ -14,11 +15,22 @@ TextEditingController _phone = TextEditingController();
 class _SetNewState extends State<SetNew> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(0xFFF9FAFF)));
+
     return Scaffold(
       appBar: AppBar(
-        elevation:0
-      ),
-      backgroundColor: Color(0xFFF9FAFF),
+        elevation: 0,
+        title: Image.asset(
+          'images/Logoword.png',
+          width: 250,
+          height: 80,
+        ),
+        leading: BackButton(
+          color: Colors.black,
+        ),
+        backgroundColor: Color(0xFFF9FAFF),
+
+    ),
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.center,
@@ -26,11 +38,6 @@ class _SetNewState extends State<SetNew> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "images/Logoword.png",
-                height: 100.0,
-                width: 350.0,
-              ),
               Container(
                 padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 20),
                 decoration: BoxDecoration(
@@ -38,9 +45,7 @@ class _SetNewState extends State<SetNew> {
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.white12),
                     boxShadow: [
-                      BoxShadow(
-                          color: Colors.black38.withOpacity(.02),
-                          spreadRadius: 3),
+                      BoxShadow(color: Colors.purple.shade100.withOpacity(.02), spreadRadius: 5),
                     ]),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +105,7 @@ class _SetNewState extends State<SetNew> {
                                 labelText: 'Password',
                                 hintStyle: TextStyle(color: Colors.black38)),
                           ),
-                          SizedBox(height: 15,),
+                          SizedBox(height: 20),
                           Text(
                             'Confirm New Password',
                             style:

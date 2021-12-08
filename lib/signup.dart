@@ -17,8 +17,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   // late String openCamera;
-
-  _openCamera() {}
+  // _openCamera() {}
 
   TextEditingController phoneNumber = TextEditingController();
   bool _value = false;
@@ -38,6 +37,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(0xFFF9FAFF)));
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -68,9 +68,7 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.white,
                   boxShadow: [
-                    BoxShadow(
-                        color: Colors.black38.withOpacity(.02),
-                        spreadRadius: 3),
+                    BoxShadow(color: Colors.purple.shade100.withOpacity(.02), spreadRadius: 5),
                   ]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -108,8 +106,6 @@ class _SignUpState extends State<SignUp> {
                       var status = await Permission.camera.status;
                       if (!status.isGranted) {
                         await Permission.camera.request();
-                        // if (status.isGranted) {
-                        // openCamera;
                       }
                     },
                     child: Container(
@@ -160,6 +156,21 @@ class _SignUpState extends State<SignUp> {
                           ),
 
                           Text(
+                            'Last Name',
+                            style:
+                            TextStyle(color: Colors.black38, fontSize: 15),
+                          ),
+                          TextField(
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Last Name',
+                                hintStyle: TextStyle(color: Colors.black)),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+
+                          Text(
                             'EmailAddress',
                             style:
                                 TextStyle(color: Colors.black38, fontSize: 15),
@@ -184,7 +195,7 @@ class _SignUpState extends State<SignUp> {
                             child: Container(
                               height: 55,
                               padding: EdgeInsets.only(
-                                  right: 10.0, left: 10.0, top: 18, bottom: 18),
+                                  right: 10.0, left: 10.0, top: 10, bottom: 10),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(5),
@@ -231,6 +242,7 @@ class _SignUpState extends State<SignUp> {
                                   Expanded(
                                     child: Center(
                                       child: Container(
+                                        // color: Colors.yellow,
                                         padding: EdgeInsets.all(2),
                                         child: TextField(
                                           controller: phoneNumber,
@@ -335,16 +347,22 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
                               ),
-                              Text(
-                                'I agree to the',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                              Text(
-                                'terms&conditions',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF4B0082)),
+                              SizedBox(
+                                  height: 20,
+                                  width: 95,
+                                  child: Text(
+                                    'I agree to the',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ),
+                              Container(
+                                margin: EdgeInsets.only(bottom: 5,top: 5),
+                                child: Text(
+                                  'Terms & Conditions',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF4B0082)),
+                                ),
                               )
                             ],
                           ),

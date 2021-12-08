@@ -1,6 +1,7 @@
 import 'package:fastrak/passwordotp.dart';
 import 'package:fastrak/setnew.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Inscreen extends StatefulWidget {
 String phone;
@@ -10,10 +11,17 @@ Inscreen(this.phone);
 }
 
 class _InscreenState extends State<Inscreen> {
-  TextEditingController _phone = TextEditingController();
-
+  TextEditingController phoneNumber = TextEditingController();
+ @override
+  void initState() {
+   print('omnia:${widget.phone}');
+    // TODO: implement initState
+    super.initState();
+  }
   @override
+
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(0xFFF9FAFF)));
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -40,9 +48,7 @@ class _InscreenState extends State<Inscreen> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: Colors.white12),
                   boxShadow: [
-                    BoxShadow(
-                        color: Colors.black38.withOpacity(.02),
-                        spreadRadius: 3),
+                    BoxShadow(color: Colors.purple.shade100.withOpacity(.02), spreadRadius: 5),
                   ]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +129,7 @@ class _InscreenState extends State<Inscreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => PasswordOtp(_phone.text)));
+                                        builder: (context) => PasswordOtp(widget.phone)));
                               });
                             }),
                         SizedBox(
@@ -157,7 +163,7 @@ class _InscreenState extends State<Inscreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PasswordOtp(_phone.text)));
+                                  builder: (context) => PasswordOtp(widget.phone)));
                         }),
                   ),
                 ],
@@ -194,7 +200,7 @@ class _InscreenState extends State<Inscreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PasswordOtp(_phone.text)));
+                                  builder: (context) => PasswordOtp(widget.phone)));
                         }),
                   ),
                 ),

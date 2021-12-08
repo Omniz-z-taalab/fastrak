@@ -19,8 +19,10 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(0xFFF9FAFF)));
     return Scaffold(
       appBar: AppBar(
+
         elevation: 0,
         title: Image.asset(
           'images/Logoword.png',
@@ -48,9 +50,7 @@ class _SignInState extends State<SignIn> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: Colors.white12),
                   boxShadow: [
-                    BoxShadow(
-                        color: Colors.black38.withOpacity(.02),
-                        spreadRadius: 3),
+                    BoxShadow(color: Colors.purple.shade100.withOpacity(.02), spreadRadius: 5),
                   ]),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -93,79 +93,81 @@ class _SignInState extends State<SignIn> {
                           ),
                           Container(
                             padding: EdgeInsets.only(top: 5, bottom: 5),
-                            child: Container(
-                              height: 55,
-                              padding: EdgeInsets.only(
-                                  right: 10.0, left: 10.0, top: 18, bottom: 18),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: Colors.black38)),
-                              child: Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      showCountryPicker(
-                                        context: context,
-                                        showPhoneCode: true,
-                                        onSelect: (Country country) {
-                                          print(
-                                              'Select country: ${country.displayName}');
-                                          setState(() {
-                                            countryName = country.phoneCode;
-                                          });
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      height: 20,
-                                      child: Text(
-                                        '${countryName}',
-                                        style: TextStyle(fontSize: 10),
-                                      ),
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.black12,
-                                    size: 20,
-                                  ),
-                                  Container(
-                                    color: Colors.black38,
-                                    child: SizedBox(
-                                      width: 2.0,
-                                      height: 20.0,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 2,
-                                  ),
-                                  Expanded(
-                                    child: Center(
+                            child: Center(
+                              child: Container(
+                                height: 55,
+                                padding: EdgeInsets.only(
+                                    right: 10.0, left: 10.0, top: 5, bottom: 5),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: Colors.black38)),
+                                child: Row(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        showCountryPicker(
+                                          context: context,
+                                          showPhoneCode: true,
+                                          onSelect: (Country country) {
+                                            print(
+                                                'Select country: ${country.displayName}');
+                                            setState(() {
+                                              countryName = country.phoneCode;
+                                            });
+                                          },
+                                        );
+                                      },
                                       child: Container(
-                                        // color: Colors.yellow,
-                                        padding: EdgeInsets.all(2),
-                                        child: TextFormField(
-                                          controller: _phone,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter
-                                                .digitsOnly,
-                                            LengthLimitingTextInputFormatter(
-                                                10),
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'^[1-9][0-9]*$'))
-                                          ],
-                                          decoration: const InputDecoration(
-                                              border: InputBorder.none,
-                                              contentPadding: EdgeInsets.all(9),
-                                              // border: OutlineInputBorder(),
-                                              hintStyle:
-                                                  TextStyle(fontSize: 15)),
+                                        height: 20,
+                                        child: Text(
+                                          '${countryName}',
+                                          style: TextStyle(fontSize: 10),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Colors.black12,
+                                      size: 20,
+                                    ),
+                                    Container(
+                                      color: Colors.black38,
+                                      child: SizedBox(
+                                        width: 2.0,
+                                        height: 20.0,
+                                      ),
+                                    ),
+
+
+                                       Expanded(
+                                              child: Container(
+                                                   // color: Colors.yellow,
+                                                  child: TextFormField(
+                                                    controller: _phone,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .digitsOnly,
+                                                      LengthLimitingTextInputFormatter(
+                                                          10),
+                                                      FilteringTextInputFormatter.allow(
+                                                          RegExp(r'^[1-9][0-9]*$'))
+                                                    ],
+                                                    decoration: const InputDecoration(
+                                                        border: InputBorder.none,
+                                                        hintText: ('phone'),
+                                                        contentPadding: EdgeInsets.all(13),
+                                                        // border: OutlineInputBorder(),
+                                                        hintStyle:
+                                                            TextStyle(fontSize: 15,fontStyle: FontStyle.normal,color: Colors.black38),
+                                                  ),
+                                                ),
+                                              ),
+
+
+
+                                       )],
+                                ),
                               ),
                             ),
                           ),

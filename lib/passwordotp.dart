@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:fastrak/setnew.dart';
 import 'package:fastrak/signin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -48,8 +49,11 @@ class _PasswordOtpState extends State<PasswordOtp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(0xFFF9FAFF)));
+
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Image.asset(
           'images/Logoword.png',
           width: 250,
@@ -72,11 +76,7 @@ class _PasswordOtpState extends State<PasswordOtp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "images/Logoword.png",
-                height: 100.0,
-                width: 350.0,
-              ),
+
               Container(
                 padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 20),
                 decoration: BoxDecoration(
@@ -84,9 +84,7 @@ class _PasswordOtpState extends State<PasswordOtp> {
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.white12),
                     boxShadow: [
-                      BoxShadow(
-                          color: Colors.black38.withOpacity(.02),
-                          spreadRadius: 3),
+                      BoxShadow(color: Colors.purple.shade100.withOpacity(.02), spreadRadius: 5),
                     ]),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
