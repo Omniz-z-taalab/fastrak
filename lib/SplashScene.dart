@@ -24,7 +24,7 @@ class _SplashSceneState extends State<SplashScene> {
     if (response.statusCode == 200) {
       Update model = Update.fromJson(jsonDecode(response.body)['data']);
       if (model.hasUpdate == false) {
-        throw Navigator.of(context)
+        Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (_) => WelcomeScene()));
       } else {
         _launchURL();

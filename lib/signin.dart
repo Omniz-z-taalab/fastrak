@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:fastrak/Password.dart';
 import 'package:fastrak/signup.dart';
@@ -5,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+
+import 'APIS/model/CheckUser.dart';
 
 class SignIn extends StatefulWidget {
   // String phone;
@@ -17,12 +23,45 @@ class _SignInState extends State<SignIn> {
   String countryName = "20";
   TextEditingController _phone = TextEditingController();
 
+  Future<CheckUser?> postUser() async {
+    var response = await http.post(
+        Uri.parse(
+            "http://3.126.221.243:8080/api/v1/user/auth/regular/check-user"),
+        headers: {
+          HttpHeaders.acceptHeader: "application/json"
+        },
+        body: {
+          "phone": _phone.text,
+        });
+
+    print(response.statusCode);
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      Data model = Data.fromJson(jsonDecode(response.body)['data']);
+      if (model.isExist == false) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => SignUp(_phone.text)));
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => Inscreen(_phone.text)));
+      }
+    } else {
+      print("error");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(0xFFF9FAFF)));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Color(0xFFF9FAFF)));
     return Scaffold(
       appBar: AppBar(
-
         elevation: 0,
         title: Image.asset(
           'images/Logoword.png',
@@ -50,7 +89,9 @@ class _SignInState extends State<SignIn> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: Colors.white12),
                   boxShadow: [
-                    BoxShadow(color: Colors.purple.shade100.withOpacity(.02), spreadRadius: 5),
+                    BoxShadow(
+                        color: Colors.purple.shade100.withOpacity(.02),
+                        spreadRadius: 5),
                   ]),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -138,35 +179,33 @@ class _SignInState extends State<SignIn> {
                                         height: 20.0,
                                       ),
                                     ),
-
-
-                                       Expanded(
-                                              child: Container(
-                                                   // color: Colors.yellow,
-                                                  child: TextFormField(
-                                                    controller: _phone,
-                                                    inputFormatters: [
-                                                      FilteringTextInputFormatter
-                                                          .digitsOnly,
-                                                      LengthLimitingTextInputFormatter(
-                                                          10),
-                                                      FilteringTextInputFormatter.allow(
-                                                          RegExp(r'^[1-9][0-9]*$'))
-                                                    ],
-                                                    decoration: const InputDecoration(
-                                                        border: InputBorder.none,
-                                                        hintText: ('phone'),
-                                                        contentPadding: EdgeInsets.all(13),
-                                                        // border: OutlineInputBorder(),
-                                                        hintStyle:
-                                                            TextStyle(fontSize: 15,fontStyle: FontStyle.normal,color: Colors.black38),
-                                                  ),
-                                                ),
-                                              ),
-
-
-
-                                       )],
+                                    Expanded(
+                                      child: Container(
+                                        // color: Colors.yellow,
+                                        child: TextFormField(
+                                          controller: _phone,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
+                                            LengthLimitingTextInputFormatter(
+                                                10),
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp(r'^[1-9][0-9]*$'))
+                                          ],
+                                          decoration: const InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: ('phone'),
+                                            contentPadding: EdgeInsets.all(13),
+                                            // border: OutlineInputBorder(),
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                fontStyle: FontStyle.normal,
+                                                color: Colors.black38),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
@@ -188,13 +227,7 @@ class _SignInState extends State<SignIn> {
                                         fontSize: 15.0,
                                         fontWeight: FontWeight.bold)),
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          Inscreen(_phone.text),
-                                    ),
-                                  );
+                                  postUser();
                                 }),
                           ),
                           SizedBox(
