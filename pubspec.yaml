@@ -33,6 +33,8 @@ dependencies:
   image_gallery_saver: ^1.2.2
   image_picker: 0.7.5
   flutter_verification_code: ^1.1.0
+  form_validator: ">=0.1.1 <2.0.0"
+
   flutter:
     sdk: flutter
   http: ^0.13.0
